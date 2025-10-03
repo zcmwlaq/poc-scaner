@@ -1,0 +1,23 @@
+name: SQL注入测试
+description: 测试SQL注入漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /search
+  params:
+    query: "1' OR '1'='1"
+    page: "1"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "error in your SQL syntax"
+    - "mysql_fetch_array()"
+    - "ORA-00933"
+  errorIndicators:
+    - "no results found"
+    - "0 results"
+  statusCode: 200

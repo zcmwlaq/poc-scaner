@@ -1,0 +1,11 @@
+!!com.pocscanner.core.model.POCConfig
+author: Test
+description: 测试包含匹配规则
+level: 中
+name: Test Contains Matching
+request: {body: null, headers: null, method: GET, params: null, path: /test-contains}
+response:
+  errorIndicators: [not found]
+  matchType: contains
+  statusCode: 200
+  successIndicators: ['123']

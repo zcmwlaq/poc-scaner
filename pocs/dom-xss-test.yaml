@@ -1,0 +1,24 @@
+name: DOM型XSS测试
+description: 测试DOM型XSS漏洞
+level: 中
+author: Test
+request:
+  method: GET
+  path: /search
+  params:
+    query: "<img src=x onerror=alert('DOM XSS')>"
+    lang: "en"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "search results"
+    - "搜索结果"
+    - "<img src=x onerror=alert('DOM XSS')>"
+  errorIndicators:
+    - "no results"
+    - "invalid query"
+    - "无效查询"
+  statusCode: 200

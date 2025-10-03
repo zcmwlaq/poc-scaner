@@ -1,0 +1,15 @@
+name: Test Contains Matching
+description: 测试包含匹配规则
+level: 中
+author: Test
+request:
+  method: GET
+  path: /test-contains
+response:
+  matchType: contains
+  successIndicators:
+    - "partial"
+    - "content"
+  errorIndicators:
+    - "not found"
+  statusCode: 200

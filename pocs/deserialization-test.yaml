@@ -1,0 +1,24 @@
+name: 反序列化漏洞测试
+description: 测试Java反序列化漏洞
+level: 高
+author: Test
+request:
+  method: POST
+  path: /api/data
+  params:
+    action: "process"
+  headers:
+    Content-Type: "application/octet-stream"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "rO0ABXNyABFqYXZhLnV0aWwuSGFzaFNldLpEhZWWuLc0AwAAeHB3DAAAAC/vAAAABjQ="
+response:
+  matchType: contains
+  successIndicators:
+    - "data processed"
+    - "数据处理完成"
+  errorIndicators:
+    - "invalid data"
+    - "deserialization error"
+    - "反序列化错误"
+  statusCode: 200

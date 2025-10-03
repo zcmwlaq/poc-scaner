@@ -1,0 +1,26 @@
+name: HTTP方法覆盖测试
+description: 测试HTTP方法覆盖漏洞
+level: 中
+author: Test
+request:
+  method: POST
+  path: /api/users/1
+  params:
+    action: "update"
+  headers:
+    X-HTTP-Method-Override: "DELETE"
+    Content-Type: "application/x-www-form-urlencoded"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "confirm=true"
+response:
+  matchType: contains
+  successIndicators:
+    - "user deleted"
+    - "删除成功"
+    - "deleted successfully"
+  errorIndicators:
+    - "method not allowed"
+    - "invalid request"
+    - "无效请求"
+  statusCode: 200

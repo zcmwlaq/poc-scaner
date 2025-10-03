@@ -1,0 +1,24 @@
+name: CORS配置错误测试
+description: 测试CORS配置错误漏洞
+level: 中
+author: Test
+request:
+  method: GET
+  path: /api/data
+  params:
+    id: "123"
+  headers:
+    Origin: "http://malicious.com"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "Access-Control-Allow-Origin: *"
+    - "Access-Control-Allow-Origin: http://malicious.com"
+    - "access-control-allow-credentials: true"
+  errorIndicators:
+    - "access denied"
+    - "invalid origin"
+    - "无效来源"
+  statusCode: 200

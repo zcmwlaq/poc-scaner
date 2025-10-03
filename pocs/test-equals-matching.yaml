@@ -1,0 +1,14 @@
+name: Test Equals Matching
+description: 测试完全等于匹配规则
+level: 低
+author: Test
+request:
+  method: GET
+  path: /test-equals
+response:
+  matchType: equals
+  successIndicators:
+    - "Exact match content"
+  errorIndicators:
+    - "Error content"
+  statusCode: 200

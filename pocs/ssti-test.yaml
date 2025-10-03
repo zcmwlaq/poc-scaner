@@ -1,0 +1,24 @@
+name: SSTI模板注入测试
+description: 测试服务器端模板注入漏洞
+level: 高
+author: Test
+request:
+  method: GET
+  path: /render
+  params:
+    template: "{{7*7}}"
+    format: "html"
+  headers:
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+response:
+  matchType: contains
+  successIndicators:
+    - "49"
+    - "{{7*7}}"
+    - "7*7"
+  errorIndicators:
+    - "invalid template"
+    - "template error"
+    - "模板错误"
+  statusCode: 200
